@@ -29,11 +29,11 @@ const int MAX_NUM = 512
 const char buf[MAX_NUM]
 """
 
-#attack_speed_base = mod_base + 0x0074B099
+#attack_speed_base = mod_base + 0x01AEA7C8
 #attack_speed_offsets =  [0x40]
 
-movement_speed_base = mod_base + 0x0074B098
-movement_speed_offsets = [0x40, 0x538, 0x40, 0x48, 0xB0, 0x30, 0x3E0]
+movement_speed_base = mod_base + 0x01AEA7C8
+movement_speed_offsets = [0xA0, 0x40, 0x18, 0x60, 0x18, 0xC0, 0x3E0]
 
 #crit_chance_base = mod_base + 0x0074B088
 #crit_chance_offsets = [0x10, 0x20, 0x30]
@@ -50,13 +50,14 @@ movement_speed_offsets = [0x40, 0x538, 0x40, 0x48, 0xB0, 0x30, 0x3E0]
 
 # Finds the memory address for each stat and stores them in the global variables
 def find_addresses():
-    global movement_speed
+      global movement_speed
+      movement_speed_address = find_dynamic_address(movement_speed_base, movement_speed_offsets)
+
 """
     global attack_speed_address, movement_speed_address, crit_chance_address
     global bleed_chance_address, health_regen_address, armor_address
 """
     #attack_speed_address = find_dynamic_address(attack_speed_base, attack_speed_offsets)
-     movement_speed_address = find_dynamic_address(movement_speed_base, movement_speed_offsets)
 
     #crit_chance_address = find_dynamic_address(crit_chance_base, crit_chance_offsets)
     #bleed_chance_address = find_dynamic_address(bleed_chance_base, bleed_chance_offsets)
@@ -110,7 +111,7 @@ movement_speed_label.pack(anchor="w", padx=10, pady=5)
 def update_stats():
     # Reading item counts from memory
     #attack_speed = pm.read_float(attack_speed_address)
-    movement_speed = pm.read_float(movement_speed_address)
+   movement_speed = pm.read_int(movement_speed_address)
     #crit_chance = pm.read_float(crit_chance_address)
     #bleed_chance = pm.read_float(bleed_chance_address)
     #health_regen = pm.read_float(health_regen_address)
@@ -118,14 +119,14 @@ def update_stats():
 
     # Update the text labels
     #attack_speed_label.config(text=f"Attack Speed: {attack_speed}")
-    movement_speed_label.config(text=f"Movement Speed: {movement_speed} m/s")
+   movement_speed_label.config(text=f"Movement Speed: {movement_speed} m/s")
     #crit_chance_label.config(text=f"Crit Chance: {crit_chance}%")
     #bleed_chance_label.config(text=f"Bleed Chance: {bleed_chance}%")
     #health_regen_label.config(text=f"Health Regen: {health_regen} HP/s")
     #armor_label.config(text=f"Armor: {armor}")
 
     # Schedule the next update in ms
-    root.after(500, update_stats)
+   root.after(500, update_stats)
 
 
 # Start updating the stats
