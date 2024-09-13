@@ -23,45 +23,45 @@ def find_dynamic_address(base_address, offsets):
     return addr
 
 
-# Global variables, defining base pointers and offsets
-attack_speed_address, movement_speed_address, crit_chance_address = None
-bleed_chance_address, health_regen_address, armor_address = None
 
-"""  
+"""
 const int MAX_NUM = 512
 const char buf[MAX_NUM]
 """
 
-attack_speed_base = mod_base + 0x0074B099
-attack_speed_offsets =  [0x40]
+#attack_speed_base = mod_base + 0x0074B099
+#attack_speed_offsets =  [0x40]
 
 movement_speed_base = mod_base + 0x0074B098
 movement_speed_offsets = [0x40, 0x538, 0x40, 0x48, 0xB0, 0x30, 0x3E0]
 
-crit_chance_base = mod_base + 0x0074B088
-crit_chance_offsets = [0x10, 0x20, 0x30]
+#crit_chance_base = mod_base + 0x0074B088
+#crit_chance_offsets = [0x10, 0x20, 0x30]
 
-bleed_chance_base = mod_base + 0x0074B097
-bleed_chance_offsets = [0x10, 0x20, 0x30]
+#bleed_chance_base = mod_base + 0x0074B097
+#bleed_chance_offsets = [0x10, 0x20, 0x30]
 
-health_regen_base = mod_base + 0x0074B093
-health_regen_offsets = [0x10, 0x20, 0x30]
+#health_regen_base = mod_base + 0x0074B093
+#health_regen_offsets = [0x10, 0x20, 0x30]
 
-armor_base = mod_base + 0x0074B091
-armor_offsets = [0x10, 0x20, 0x30]
+#armor_base = mod_base + 0x0074B091
+#armor_offsets = [0x10, 0x20, 0x30]
 
 
 # Finds the memory address for each stat and stores them in the global variables
 def find_addresses():
+    global movement_speed
+"""
     global attack_speed_address, movement_speed_address, crit_chance_address
     global bleed_chance_address, health_regen_address, armor_address
+"""
+    #attack_speed_address = find_dynamic_address(attack_speed_base, attack_speed_offsets)
+     movement_speed_address = find_dynamic_address(movement_speed_base, movement_speed_offsets)
 
-    attack_speed_address = find_dynamic_address(attack_speed_base, attack_speed_offsets)
-    movement_speed_address = find_dynamic_address(movement_speed_base, movement_speed_offsets)
-    crit_chance_address = find_dynamic_address(crit_chance_base, crit_chance_offsets)
-    bleed_chance_address = find_dynamic_address(bleed_chance_base, bleed_chance_offsets)
-    health_regen_address = find_dynamic_address(health_regen_base, health_regen_offsets)
-    armor_address = find_dynamic_address(armor_base, armor_offsets)
+    #crit_chance_address = find_dynamic_address(crit_chance_base, crit_chance_offsets)
+    #bleed_chance_address = find_dynamic_address(bleed_chance_base, bleed_chance_offsets)
+    #health_regen_address = find_dynamic_address(health_regen_base, health_regen_offsets)
+    #armor_address = find_dynamic_address(armor_base, armor_offsets)
 
 
 # Call to initialize
@@ -88,41 +88,41 @@ root.configure(bg=background_color)  # Set background color
 root.overrideredirect(True)  # Removes the window border
 
 # Create labels to display the stats
-attack_speed_label = tk.Label(root, text="Attack Speed:", font=font_style, fg=text_color, bg=background_color)
-attack_speed_label.pack(anchor="w", padx=10, pady=5)
+#attack_speed_label = tk.Label(root, text="Attack Speed:", font=font_style, fg=text_color, bg=background_color)
+#attack_speed_label.pack(anchor="w", padx=10, pady=5)
 
 movement_speed_label = tk.Label(root, text="Movement Speed:", font=font_style, fg=text_color, bg=background_color)
 movement_speed_label.pack(anchor="w", padx=10, pady=5)
 
-crit_chance_label = tk.Label(root, text="Crit Chance:", font=font_style, fg=highlight_color, bg=background_color)
-crit_chance_label.pack(anchor="w", padx=10, pady=5)
+#crit_chance_label = tk.Label(root, text="Crit Chance:", font=font_style, fg=highlight_color, bg=background_color)
+#crit_chance_label.pack(anchor="w", padx=10, pady=5)
 
-bleed_chance_label = tk.Label(root, text="Bleed Chance:", font=font_style, fg=text_color, bg=background_color)
-bleed_chance_label.pack(anchor="w", padx=10, pady=5)
+#bleed_chance_label = tk.Label(root, text="Bleed Chance:", font=font_style, fg=text_color, bg=background_color)
+#bleed_chance_label.pack(anchor="w", padx=10, pady=5)
 
-health_regen_label = tk.Label(root, text="Health Regen:", font=font_style, fg=highlight_color, bg=background_color)
-health_regen_label.pack(anchor="w", padx=10, pady=5)
+#health_regen_label = tk.Label(root, text="Health Regen:", font=font_style, fg=highlight_color, bg=background_color)
+#health_regen_label.pack(anchor="w", padx=10, pady=5)
 
-armor_label = tk.Label(root, text="Armor:", font=font_style, fg=text_color, bg=background_color)
-armor_label.pack(anchor="w", padx=10, pady=5)
+#armor_label = tk.Label(root, text="Armor:", font=font_style, fg=text_color, bg=background_color)
+#armor_label.pack(anchor="w", padx=10, pady=5)
 
 
 def update_stats():
     # Reading item counts from memory
-    attack_speed = pm.read_float(attack_speed_address)
+    #attack_speed = pm.read_float(attack_speed_address)
     movement_speed = pm.read_float(movement_speed_address)
-    crit_chance = pm.read_float(crit_chance_address)
-    bleed_chance = pm.read_float(bleed_chance_address)
-    health_regen = pm.read_float(health_regen_address)
-    armor = pm.read_float(armor_address)
+    #crit_chance = pm.read_float(crit_chance_address)
+    #bleed_chance = pm.read_float(bleed_chance_address)
+    #health_regen = pm.read_float(health_regen_address)
+    #armor = pm.read_float(armor_address)
 
     # Update the text labels
-    attack_speed_label.config(text=f"Attack Speed: {attack_speed}")
+    #attack_speed_label.config(text=f"Attack Speed: {attack_speed}")
     movement_speed_label.config(text=f"Movement Speed: {movement_speed} m/s")
-    crit_chance_label.config(text=f"Crit Chance: {crit_chance}%")
-    bleed_chance_label.config(text=f"Bleed Chance: {bleed_chance}%")
-    health_regen_label.config(text=f"Health Regen: {health_regen} HP/s")
-    armor_label.config(text=f"Armor: {armor}")
+    #crit_chance_label.config(text=f"Crit Chance: {crit_chance}%")
+    #bleed_chance_label.config(text=f"Bleed Chance: {bleed_chance}%")
+    #health_regen_label.config(text=f"Health Regen: {health_regen} HP/s")
+    #armor_label.config(text=f"Armor: {armor}")
 
     # Schedule the next update in ms
     root.after(500, update_stats)
